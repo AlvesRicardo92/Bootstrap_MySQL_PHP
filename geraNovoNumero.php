@@ -1,7 +1,7 @@
 <?php 
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
-$password = ""; 
+$password = "root"; 
 $database = "teste_semaforica"; 
 
 # O hostname deve ser sempre localhost 
@@ -45,6 +45,7 @@ else{
             }
         }
         else{
+            echo $sql."\n";
             echo "erro ao fazer o insert\n";
         }
 

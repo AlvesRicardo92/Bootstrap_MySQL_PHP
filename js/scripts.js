@@ -6,8 +6,8 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 function inserirLinhaTabela(descricao) {
-    if (document.getElementById('tipoServico').value===""){
-        alert("Selecione um tipo de serviço");
+    if (document.getElementById('tipoServico').selectedIndex<=0){
+        alert("Selecione o tipo de serviço correto");
     }
     else{
         var tbodyRef = document.getElementById('tabelaServico').getElementsByTagName('tbody')[0];
@@ -32,7 +32,7 @@ function inserirLinhaTabela(descricao) {
         //newText = document.createTextNode('<button type="button" class="btn"><i class="fas fa-trash" style="font-size:16px;"> Excluir</i></button>');
         newCell.appendChild(btn);
 
-        document.getElementById('tipoServico').value="";
+        document.getElementById('tipoServico').value="0";
     }    
 }
 function removerLinha() {
@@ -43,11 +43,14 @@ function removerLinha() {
 }
 function inserirLinhaTabelaMaterial(item,quantidade) {
     var valorRadio;
-    if (document.getElementById('tipoMaterial').value===""){
-        alert("Selecione um tipo de material");
+    if (document.getElementById('tipoMaterial').selectedIndex<=0){
+        alert("Selecione o material correto");
     }
     else if(document.getElementById('quantidadeMaterial').value===""){
         alert("Digite a quantidade de material utilizada");
+    }
+    else if (parseInt(document.getElementById('quantidadeMaterial').value) < 1){
+        alert("Digite a quantidade de material correta");
     }
     else if(!document.getElementById('pmsbc').checked && !document.getElementById('consorcio').checked){
         alert("Informe se o material utilizado é da prefeitura ou do consórcio");
@@ -91,7 +94,7 @@ function inserirLinhaTabelaMaterial(item,quantidade) {
         //newText = document.createTextNode('<button type="button" class="btn"><i class="fas fa-trash" style="font-size:16px;"> Excluir</i></button>');
         newCell.appendChild(btn);
 
-        document.getElementById('tipoMaterial').value="";
+        document.getElementById('tipoMaterial').value="0";
         document.getElementById('quantidadeMaterial').value="";
         document.getElementById('pmsbc').checked=false;
         document.getElementById('consorcio').checked=false;
@@ -114,6 +117,7 @@ function gerarNovo(){
             alert("feito");
         },
         success: function (resultado) {
+            //console.log(resultado);
             if (resultado>0){
                 var obj = document.getElementById("diariaNumero");
                 //obj.removeAttribute("disabled");
@@ -153,18 +157,22 @@ function gerarNovo(){
 
                 obj = document.getElementById("tipoServico");
                 obj.removeAttribute("disabled");
-                obj.value="";
+                obj.value="0";
 
                 obj = document.getElementById("incluirNaLista");
                 obj.removeAttribute("disabled");
 
                 obj = document.getElementById("tipoMaterial");
                 obj.removeAttribute("disabled");
-                obj.value="";
+                obj.value="0";
 
                 obj = document.getElementById("quantidadeMaterial");
                 obj.removeAttribute("disabled");
                 obj.value="";
+
+                obj = document.getElementById("retirada");
+                obj.removeAttribute("disabled");
+                obj.value=false;
 
                 obj = document.getElementById("pmsbc");
                 obj.removeAttribute("disabled");

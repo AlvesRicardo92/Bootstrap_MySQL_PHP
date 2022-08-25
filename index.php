@@ -1,7 +1,7 @@
 <?php 
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
-$password = ""; 
+$password = "root"; 
 $database = "teste_semaforica"; 
 
 # O hostname deve ser sempre localhost 
@@ -133,20 +133,29 @@ if ($mysqli -> connect_errno) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Tipo de serviço" aria-label="Tipo de serviço" aria-describedby="incluirNaLista" list="listaServicos" id="tipoServico" disabled>
-                                <button class="btn btn-primary" type="button" id="incluirNaLista" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabela(document.getElementById('tipoServico').value)" disabled>Incluir</button>
-                                <datalist id="listaServicos">
-                                    <option value="Atender chamado"></option>
-                                    <option value="Botoeira em curto"></option>
-                                    <option value="Consulta de planos"></option>
-                                </datalist>
-                            </div>
+                        <div class="form-floating col-md-11">
+                            <select class="form-select" id="tipoServico" aria-label="Tipo de serviço" disabled>
+                                <!--<option selected>Open this select menu</option>-->
+                                <option value="0" selected>Selecione o tipo de serviço</option>
+                                <?php
+                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $result = $mysqli->query($sql);
+                                    $data = $result->fetch_all(MYSQLI_ASSOC);
+                                    foreach($data as $row) {
+                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                    }  
+                                    $result -> free_result();  
+                                    //$mysqli->close();
+                                ?>
+                            </select>
+                            <label for="tipoServico">Tipo de serviço</label>
+                        </div>
+                        <div class="col-md-1 mt-2">
+                        <button class="btn btn-primary" type="button" id="incluirNaLista" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabela(document.getElementById('tipoServico').selectedOptions[0].innerText)" disabled>Incluir</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-3">
                             <table class="table table-primary table-striped" id="tabelaServico">
                                 <tbody>
                                 <!--<tr>
@@ -158,10 +167,32 @@ if ($mysqli -> connect_errno) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Material utilizado" aria-label="Material utilizado" aria-describedby="incluirNaListaMaterial" list="listaMaterial" id="tipoMaterial" disabled>
+                        <div class="form-floating col-md-4 mb-3">
+                            <select class="form-select" id="tipoMaterial" aria-label="Material utilizado" disabled>
+                                <!--<option selected>Open this select menu</option>-->
+                                <option value="0" selected>Selecione o material utilizado</option>
+                                <?php
+                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $result = $mysqli->query($sql);
+                                    $data = $result->fetch_all(MYSQLI_ASSOC);
+                                    foreach($data as $row) {
+                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                    }  
+                                    $result -> free_result();  
+                                    //$mysqli->close();
+                                ?>
+                            </select>
+                            <label for="tipoServico">Material utilizado</label>
+                        </div>
+                        <div class="col-md-3 mb-3" style="padding-top:9px;">
                             <input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade" aria-describedby="incluirNaListaMaterial" id="quantidadeMaterial" disabled>
-                            <div style="padding-top:7px;">&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div style="padding-top:15px;">&nbsp;&nbsp;
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="origemMaterial" id="retirada" value="Retirada" disabled>
+                                    <label class="form-check-label" for="retirada">Retirada</label>
+                                </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="origemMaterial" id="pmsbc" value="PMSBC" disabled>
                                     <label class="form-check-label" for="pmsbc">PMSBC</label>
@@ -171,16 +202,14 @@ if ($mysqli -> connect_errno) {
                                     <label class="form-check-label" for="consorcio">Consórcio</label>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="button" id="incluirNaListaMaterial" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabelaMaterial(document.getElementById('tipoMaterial').value,document.getElementById('quantidadeMaterial').value)" disabled>Incluir</button>
-                            <datalist id="listaMaterial">
-                                <option value="Item 01"></option>
-                                <option value="Item 02"></option>
-                                <option value="Item 03"></option>
-                            </datalist>
                         </div>
+                        <div class="col-md-1 mt-2">
+                            <button class="btn btn-primary" type="button" id="incluirNaListaMaterial" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabelaMaterial(document.getElementById('tipoMaterial').selectedOptions[0].innerText,document.getElementById('quantidadeMaterial').value)" disabled>Incluir</button>
+                        </div>
+                        
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-3">
                             <table class="table table-success table-striped" id="tabelaMaterial">
                                 <tbody>
                                 <!--<tr>
