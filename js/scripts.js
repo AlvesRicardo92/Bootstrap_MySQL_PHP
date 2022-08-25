@@ -104,95 +104,126 @@ function removerLinhaMaterial() {
     tr.parentNode.remove(tr);
 }
 function gerarNovo(){
-    var obj = document.getElementById("diariaNumero");
-    obj.removeAttribute("disabled");
+    $.ajax({
+        url: 'geraNovoNumero.php',
+        async:false,
+        type: 'POST',
+        data: {comando1:'diariaNova'},
+        dataType:'text',
+        done: function () {
+            alert("feito");
+        },
+        success: function (resultado) {
+            if (resultado>0){
+                var obj = document.getElementById("diariaNumero");
+                //obj.removeAttribute("disabled");
+                obj.value=resultado;
 
-    obj = document.getElementById("diariaData");
-    obj.removeAttribute("disabled");
-    colocarHojeNaData();
+                obj= document.getElementById("novo");
+                obj.setAttribute('disabled', '');
 
-    obj = document.getElementById("origem");
-    obj.removeAttribute("disabled");
-    obj.value="0";
+                obj= document.getElementById("pesquisar");
+                obj.setAttribute('disabled', '');
 
-    obj = document.getElementById("numTalao");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("diariaData");
+                obj.removeAttribute("disabled");
+                colocarHojeNaData();
 
-    obj = document.getElementById("buscaEndereco");
-    obj.removeAttribute("disabled");
-    
-    obj = document.getElementById("logradouro");
-    obj.value="";
-    obj = document.getElementById("bairro");
-    obj.value="";
-    obj = document.getElementById("numEndereco");
-    obj.value="";
+                obj = document.getElementById("origem");
+                obj.removeAttribute("disabled");
+                obj.value="0";
 
-    obj = document.getElementById("ocorrencia");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("numTalao");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("tipoServico");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("buscaEndereco");
+                obj.removeAttribute("disabled");
+                
+                obj = document.getElementById("logradouro");
+                obj.value="";
+                obj = document.getElementById("bairro");
+                obj.value="";
+                obj = document.getElementById("numEndereco");
+                obj.value="";
 
-    obj = document.getElementById("incluirNaLista");
-    obj.removeAttribute("disabled");
+                obj = document.getElementById("ocorrencia");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("tipoMaterial");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("tipoServico");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("quantidadeMaterial");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("incluirNaLista");
+                obj.removeAttribute("disabled");
 
-    obj = document.getElementById("pmsbc");
-    obj.removeAttribute("disabled");
-    obj.value=false;
+                obj = document.getElementById("tipoMaterial");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("consorcio");
-    obj.removeAttribute("disabled");
-    obj.value=false;
+                obj = document.getElementById("quantidadeMaterial");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("incluirNaListaMaterial");
-    obj.removeAttribute("disabled");
+                obj = document.getElementById("pmsbc");
+                obj.removeAttribute("disabled");
+                obj.value=false;
 
-    obj = document.getElementById("horaRecebeu");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("consorcio");
+                obj.removeAttribute("disabled");
+                obj.value=false;
 
-    obj = document.getElementById("horaChegou");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("incluirNaListaMaterial");
+                obj.removeAttribute("disabled");
 
-    obj = document.getElementById("horaInicio");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("horaRecebeu");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("horaFim");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("horaChegou");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("veiculo");
-    obj.removeAttribute("disabled");
-    obj.value="0";
+                obj = document.getElementById("horaInicio");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("kmInicial");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("horaFim");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("kmFinal");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("veiculo");
+                obj.removeAttribute("disabled");
+                obj.value="0";
 
-    obj = document.getElementById("obs");
-    obj.removeAttribute("disabled");
-    obj.value="";
+                obj = document.getElementById("kmInicial");
+                obj.removeAttribute("disabled");
+                obj.value="";
 
-    obj = document.getElementById("salvar");
-    obj.removeAttribute("disabled");
+                obj = document.getElementById("kmFinal");
+                obj.removeAttribute("disabled");
+                obj.value="";
+
+                obj = document.getElementById("obs");
+                obj.removeAttribute("disabled");
+                obj.value="";
+
+                obj = document.getElementById("salvar");
+                obj.removeAttribute("disabled");
+                //alert("Salvo!!");
+            }
+            else{
+                alert("Errro ao salvar");
+            }
+        },
+        fail: function(){
+            alert("falha");
+        },
+        error: function(){
+            alert("error");
+        }
+    });
 }
 function colocarHojeNaData(){
         var now = new Date();
@@ -204,4 +235,9 @@ function colocarHojeNaData(){
     
     
        $('#diariaData').val(today);
+}
+function enviarForm(){
+    var form = document.getElementById("formulario");
+
+    form.submit();
 }
