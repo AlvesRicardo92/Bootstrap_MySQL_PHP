@@ -6,11 +6,11 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 function inserirLinhaTabela(descricao) {
-    if (document.getElementById('tipoServico').selectedIndex<=0){
-        alert("Selecione o tipo de serviço correto");
+    if (document.getElementById('tipoAtividade').selectedIndex<=0){
+        alert("Selecione o tipo de atividade correto");
     }
     else{
-        var tbodyRef = document.getElementById('tabelaServico').getElementsByTagName('tbody')[0];
+        var tbodyRef = document.getElementById('tabelaAtividade').getElementsByTagName('tbody')[0];
 
         // Insert a row at the end of table
         var newRow = tbodyRef.insertRow();
@@ -32,7 +32,7 @@ function inserirLinhaTabela(descricao) {
         //newText = document.createTextNode('<button type="button" class="btn"><i class="fas fa-trash" style="font-size:16px;"> Excluir</i></button>');
         newCell.appendChild(btn);
 
-        document.getElementById('tipoServico').value="0";
+        document.getElementById('tipoAtividade').value="0";
     }    
 }
 function removerLinha() {
@@ -49,11 +49,17 @@ function inserirLinhaTabelaMaterial(item,quantidade) {
     else if(document.getElementById('quantidadeMaterial').value===""){
         alert("Digite a quantidade de material utilizada");
     }
+    else if(document.getElementById('quantidadeMaterial').value===" "){
+        alert("Digite a quantidade de material utilizada");
+    }
     else if (parseInt(document.getElementById('quantidadeMaterial').value) < 1){
         alert("Digite a quantidade de material correta");
     }
-    else if(!document.getElementById('pmsbc').checked && !document.getElementById('consorcio').checked){
-        alert("Informe se o material utilizado é da prefeitura ou do consórcio");
+    else if (isNaN(parseInt(document.getElementById('quantidadeMaterial').value))){
+        alert("Digite a quantidade de material correta");
+    }
+    else if(!document.getElementById('retirada').checked && !document.getElementById('pmsbc').checked && !document.getElementById('consorcio').checked){
+        alert("Informe se o material utilizado é da prefeitura, do consórcio ou foi apenas uma retirada");
     }
     else{
         if(document.getElementById('pmsbc').checked){
@@ -61,6 +67,9 @@ function inserirLinhaTabelaMaterial(item,quantidade) {
         }
         else if(document.getElementById('consorcio').checked){
             valorRadio="Consórcio";
+        }
+        else if(document.getElementById('retirada').checked){
+            valorRadio="Retirada";
         }
         var tbodyRef = document.getElementById('tabelaMaterial').getElementsByTagName('tbody')[0];
 
@@ -76,7 +85,7 @@ function inserirLinhaTabelaMaterial(item,quantidade) {
         newCell.appendChild(newText);
         
         newCell = newRow.insertCell();
-        newText = document.createTextNode(quantidade);
+        newText = document.createTextNode(parseInt(quantidade));
         newCell.className="align-middle";
         newCell.appendChild(newText);
         
@@ -98,6 +107,7 @@ function inserirLinhaTabelaMaterial(item,quantidade) {
         document.getElementById('quantidadeMaterial').value="";
         document.getElementById('pmsbc').checked=false;
         document.getElementById('consorcio').checked=false;
+        document.getElementById('retirada').checked=false;
     }    
 }
 function removerLinhaMaterial() {
@@ -156,6 +166,10 @@ function gerarNovo(){
                 obj.value="";
 
                 obj = document.getElementById("tipoServico");
+                obj.removeAttribute("disabled");
+                obj.value="0";
+
+                obj = document.getElementById("tipoAtividade");
                 obj.removeAttribute("disabled");
                 obj.value="0";
 
@@ -245,7 +259,117 @@ function colocarHojeNaData(){
        $('#diariaData').val(today);
 }
 function enviarForm(){
-    var form = document.getElementById("formulario");
+    var table = document.getElementById("tabelaAtividade");
+    var contador =0;
+    var contadorErro=0;
+    for (let i in table.rows) {
+        let row = table.rows[i]
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
+        for (let j in row.cells) {
+            let col = row.cells[j]
+            if (col.innerText==="Monitoramento via Central"){
+                contador=1;
+                break;
+            }
+            //iterate through columns
+            //columns would be accessed using the "col" variable assigned in the for loop
+        }  
+        if (contador==1){
+            break;
+        }
+    }
+    if (contador==1 && document.getElementById('veiculo').value=="0"){
+        //alert("Como não foi exercida a atividade 'Monitoramento via Central' é necessário selecionar o veículo utilizado");
+        document.getElementById('veiculo').style.border = "3px solid #FF0000"
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('veiculo').style.border = "1px solid #ced4da"
+    }
+    if (parseInt(document.getElementById('veiculo').value) > 0 && (document.getElementById('kmInicial').value=='' || parseInt(document.getElementById('kmInicial').value) < 1 || document.getElementById('kmInicial').value==' ' || isNaN(parseInt(document.getElementById('kmInicial').value)) || (parseInt(document.getElementById('kmInicial').value)>parseInt(document.getElementById('kmFinal').value)))){
+        //alert("Como não foi exercida a atividade 'Monitoramento via Central' é necessário selecionar o veículo utilizado e informar as quilometragens");
+        document.getElementById('kmInicial').style.border = "3px solid #FF0000"
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('kmInicial').style.border = "1px solid #ced4da";
+    }
+    if(parseInt(document.getElementById('veiculo').value) > 0 && (document.getElementById('kmFinal').value=="" || parseInt(document.getElementById('kmFinal').value) < 1 || document.getElementById('kmFinal').value==' ' || isNaN(parseInt(document.getElementById('kmFinal').value))|| (parseInt(document.getElementById('kmFinal').value)<parseInt(document.getElementById('kmInicial').value)))){
+        document.getElementById('kmFinal').style.border = "3px solid #FF0000";
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('kmFinal').style.border = "1px solid #ced4da";
+    }
+    
+    if (document.getElementById('logradouro').innerText==''){
+        //alert("Digite o endereço do local");
+        document.getElementById('buscaEndereco').style.border = "3px solid #FF0000";
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('kmFinal').style.border = "none";
+    }
+    if (document.getElementById('origem').value=='0'){
+        //alert("Selecione a origem da ocorrência");
+        document.getElementById('origem').style.border = "3px solid #FF0000";
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('origem').style.border = "1px solid #ced4da";
+    }
+    if (isNaN(parseInt(document.getElementById('horaInicio').value))){
+        //alert("Preencha o Horário que o serviço foi iniciado");
+        document.getElementById('horaInicio').style.border = "3px solid #FF0000";
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('horaInicio').style.border = "1px solid #ced4da";
+    }
+    if (isNaN(parseInt(document.getElementById('horaFim').value))){
+        //alert("Preencha o Horário que o serviço foi finalizado");
+        document.getElementById('horaFim').style.border = "3px solid #FF0000";
+        contadorErro+=1;
+    }
+    else{
+        document.getElementById('horaFim').style.border = "1px solid #ced4da";
+    }
+    if(contadorErro>0){
+        alert("Erro no preenchimento\nCorriga os campos destacados em vermelho");
+    }
+    else{
+        //var form = document.getElementById("formulario");
 
-    form.submit();
+        //form.submit();
+    }
+    
+}
+function buscarEndereco(enderecoDigitado){
+    $.ajax({
+        url: 'buscarEndereco.php',
+        async:false,
+        type: 'POST',
+        data: {endereco: enderecoDigitado},
+        dataType:'text',
+        done: function () {
+            alert("feito");
+        },
+        success: function (resultado) {
+            //console.log(resultado);
+            if (resultado!="Não encontrado"){
+                var tabelaEndereco = document.getElementById('tabelaResultadoEndereco').getElementsByTagName('tbody')[0];
+                tabelaEndereco.innerHTML=resultado;
+            }
+            else{
+                alert("Endereço não encontrado.\nTente digitar apenas parte do nome");
+            }
+        },
+        fail: function(){
+            alert("falha");
+        },
+        error: function(){
+            alert("error");
+        }
+    });
 }

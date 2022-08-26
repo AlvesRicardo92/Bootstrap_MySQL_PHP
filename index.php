@@ -1,4 +1,6 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
+ini_set('default_charset','utf-8');
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
 $password = "root"; 
@@ -18,7 +20,7 @@ if ($mysqli -> connect_errno) {
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -109,7 +111,7 @@ if ($mysqli -> connect_errno) {
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="buscaEndereco" disabled>Digitar endereço</button>
+                            <button type="button" class="btn btn-primary" id="buscaEndereco" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>Digitar endereço</button>
                         </div>
                     </div>
                     <div class="row">
@@ -133,12 +135,12 @@ if ($mysqli -> connect_errno) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-floating col-md-11">
-                            <select class="form-select" id="tipoServico" aria-label="Tipo de serviço" disabled>
+                        <div class="form-floating col-md-5 mb-3">
+                            <select class="form-select" id="tipoServico" aria-label="Tipo Serviço" disabled>
                                 <!--<option selected>Open this select menu</option>-->
                                 <option value="0" selected>Selecione o tipo de serviço</option>
                                 <?php
-                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $sql = "SELECT * FROM tiposervico WHERE desativado =0 order by descricao";
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
@@ -148,15 +150,34 @@ if ($mysqli -> connect_errno) {
                                     //$mysqli->close();
                                 ?>
                             </select>
-                            <label for="tipoServico">Tipo de serviço</label>
+                            <label for="tipoServico">Tipo Serviço</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating col-md-11">
+                            <select class="form-select" id="tipoAtividade" aria-label="Atividade executada" disabled>
+                                <!--<option selected>Open this select menu</option>-->
+                                <option value="0" selected>Selecione a atividade executada</option>
+                                <?php
+                                    $sql = "SELECT * FROM tipoatividade WHERE desativado =0 order by descricao";
+                                    $result = $mysqli->query($sql);
+                                    $data = $result->fetch_all(MYSQLI_ASSOC);
+                                    foreach($data as $row) {
+                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                    }  
+                                    $result -> free_result();  
+                                    //$mysqli->close();
+                                ?>
+                            </select>
+                            <label for="tipoAtividade">Atividade executada</label>
                         </div>
                         <div class="col-md-1 mt-2">
-                        <button class="btn btn-primary" type="button" id="incluirNaLista" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabela(document.getElementById('tipoServico').selectedOptions[0].innerText)" disabled>Incluir</button>
+                        <button class="btn btn-primary" type="button" id="incluirNaLista" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="inserirLinhaTabela(document.getElementById('tipoAtividade').selectedOptions[0].innerText)" disabled>Incluir</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 mt-3">
-                            <table class="table table-primary table-striped" id="tabelaServico">
+                            <table class="table table-primary table-striped" id="tabelaAtividade">
                                 <tbody>
                                 <!--<tr>
                                     <td class="align-middle">Descrição do serviço adicionado</td>
@@ -172,7 +193,7 @@ if ($mysqli -> connect_errno) {
                                 <!--<option selected>Open this select menu</option>-->
                                 <option value="0" selected>Selecione o material utilizado</option>
                                 <?php
-                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $sql = "SELECT * FROM material WHERE desativado =0 order by descricao";
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
@@ -182,7 +203,7 @@ if ($mysqli -> connect_errno) {
                                     //$mysqli->close();
                                 ?>
                             </select>
-                            <label for="tipoServico">Material utilizado</label>
+                            <label for="tipoMaterial">Material utilizado</label>
                         </div>
                         <div class="col-md-3 mb-3" style="padding-top:9px;">
                             <input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade" aria-describedby="incluirNaListaMaterial" id="quantidadeMaterial" disabled>
@@ -244,7 +265,7 @@ if ($mysqli -> connect_errno) {
                                 <!--<option selected>Open this select menu</option>-->
                                 <option value="0">Selecione o veículo</option>
                                 <?php 
-                                    $sql = "select CONCAT(modelo, ' ',placa) as carro from veiculo order by carro";
+                                    $sql = "select id,CONCAT(modelo, ' ',placa) as carro from veiculo order by carro";
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
@@ -284,5 +305,57 @@ if ($mysqli -> connect_errno) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="staticBackdropLabel">Localize o endereço</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-floating col-md-3 mb-2">
+                            <select class="form-select" id="tipoLogradouro" aria-label="Tipo Logradouro">
+                                <!--<option selected>Open this select menu</option>-->
+                                <option value="0"></option>
+                                <?php
+                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $result = $mysqli->query($sql);
+                                    $data = $result->fetch_all(MYSQLI_ASSOC);
+                                    foreach($data as $row) {
+                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                    }  
+                                    $result -> free_result();  
+                                    //$mysqli->close();
+                                ?>
+                            </select>
+                            <label for="tipoMaterial">Tipo Logradouro</label>
+                        </div>
+                        <div class="col-md-5 mb-2" style="padding-top:9px;">
+                            <input type="text" class="form-control" placeholder="Endereço" aria-label="Endereço" aria-describedby="pesquisarEndereco" id="endereco">
+                        </div>
+                        <div class="col-md-1 mt-2">
+                            <button class="btn btn-primary mb-2" type="button" id="pesquisarEndereco" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="buscarEndereco(document.getElementById('endereco').value)">Pesquisar</button>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-2" style="max-height:300px;height:300px;border: 1px solid #ced4da">
+                            <table class="table table-hover" id="tabelaResultadoEndereco">
+                                <tbody>
+                                <!--<tr>
+                                    <td class="align-middle">Descrição do serviço adicionado</td>
+                                    <td><button type="button" class="btn" onclick="removerLinha()"><i class="fas fa-trash" style="font-size:16px;"> Excluir</i></button></td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
