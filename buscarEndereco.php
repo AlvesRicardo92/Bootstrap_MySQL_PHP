@@ -16,37 +16,35 @@ if ($mysqli -> connect_errno) {
 }
 else{
     $endereco = $_POST["endereco"];
-
-    //var_dump($_POST);
-    //echo "\ncommando: ".$comando."\n";
     $data = date("Y-m-d");
-    //echo "data: ".$data."\n";
     $hora=date("H:i:s");
-    //echo "hora: ".$hora."\n";
     if(!isset($endereco)){
         echo "erro sem endereço";
+        exit;
     }
     else{
-        //fazer insert no banco
-        //INSERT INTO table_name (col1, col2,...) VALUES ('val1', 'val2'...);
-        //SELECT LAST_INSERT_ID();
         $tabela="";
         $linhas =0;
-        $sql = "SELECT * FROM logradouro WHERE endereco like ? and desativado=?";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param('si', $endereco,$linhas);
-        $stmt -> execute();
-        $fieldInfo = $stmt -> fetch_array();
-        $linhas =$stmt->num_rows();
-
-        if($linha>0){        
-            foreach ($fieldInfo as $campo) {
-                $tabela+="<tr><td>".$campo['endereco']."</td><td>".$campo['bairro']."</td><td><button type='button' class='btn'><i class='fas fa-trash' style='font-size:16px;'>Escolher</i></button></tr>";
+        $sql = "SELECT * FROM logradouro WHERE endereco like '%".$endereco."%' and desativado=0";
+        if ($result = $mysqli->query($sql)) {
+            $linhas = count($result);
+            $contador=1;
+            if($linhas>0){ 
+                while($row = mysqli_fetch_array($result)) {
+                    $tabela= $tabela . "<tr id='".$contador."' style='width:0px;'><td class='end'>".$row['endereco']."</td><td class='bai'>".$row['bairro']."</td><td><button type='button' class='btn escolherEndereco'><i class='fas fa-check' style='font-size:16px;'>Escolher</i></button></td></tr>";
+                    $contador++;
+                }
+                $result -> free_result();
+                echo $tabela;
             }
-            echo $tabela;
+            else{
+                $result -> free_result();
+                echo "Não encontrado";
+            }
         }
         else{
-            echo "Não encontrado";
+            echo $sql."\n";
+            echo "erro na busca do endereço\n";
         }
         $mysqli->close();
     }

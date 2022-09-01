@@ -26,10 +26,7 @@ else{
         echo "erro sem comando";
     }
     elseif($comando==="diariaNova"){
-        //fazer insert no banco
-        //INSERT INTO table_name (col1, col2,...) VALUES ('val1', 'val2'...);
-        //SELECT LAST_INSERT_ID();
-        $sql = "INSERT INTO ocorrencia (data, hora,status) VALUES ('$data', '$hora',1);";
+        $sql = "INSERT INTO ocorrencia (data, horaAbertura,status) VALUES ('".$data."', '".$hora."',1);";
         //echo $sql."\n";
         if ($result = $mysqli->query($sql)) {
             $sql = "SELECT LAST_INSERT_ID() as 'id';";

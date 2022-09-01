@@ -62,8 +62,8 @@ if ($mysqli -> connect_errno) {
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-12 mb-2">
-                            <button type="button" class="btn btn-primary" onclick="gerarNovo()" id="novo">Novo</button>
-                            <button type="button" class="btn btn-primary" id="pesquisar">Pesquisar</button>
+                            <button type="button" class="btn btn-primary" onclick="gerarNovo()" id="novo" disabled>Novo</button>
+                            <button type="button" class="btn btn-primary" id="pesquisar" disabled>Pesquisar</button>
                         </div>
                     </div>
                     <div class="row">
@@ -79,7 +79,6 @@ if ($mysqli -> connect_errno) {
                     <div class="row">
                         <div class="form-floating col-md-9 mt-3 mb-3">
                             <select class="form-select" id="origem" aria-label="Origem" disabled>
-                            <!--<option selected>Open this select menu</option>-->
                             <option value="0">Selecione a origem</option>
                             <?php
                                 $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
@@ -89,12 +88,7 @@ if ($mysqli -> connect_errno) {
                                     echo "<option value=".$row['id'].">".$row['descricao']."</option>";
                                 }  
                                 $result -> free_result();  
-                                //$mysqli->close();
                             ?>
-                            <!--<option value="1">Prodigi</option>
-                            <option value="2">Ronda</option>
-                            <option value="3">Paulo</option>
-                            <option value="4">Marcos - Coordenador</option>-->
                             </select>
                             <label for="origem">Origem da ocorrência</label>
                         </div>
@@ -111,7 +105,7 @@ if ($mysqli -> connect_errno) {
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="buscaEndereco" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>Digitar endereço</button>
+                            <button type="button" class="btn btn-primary" id="buscaEndereco" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="passaChamada('L1')" disabled>Digitar endereço</button>
                         </div>
                     </div>
                     <div class="row">
@@ -128,6 +122,15 @@ if ($mysqli -> connect_errno) {
                             <input type="text" class="form-control" id="numEndereco" placeholder="Número" disabled>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary" style="margin-top:25px;" id="buscaEnderecoCruzamento" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="passaChamada('L2')" disabled>Digitar cruzamento</button>
+                        </div>
+                        <div class="col-md-10">
+                            <label for="logradouroCruzamento" class="form-label">Logradouro do Cruzamento</label>
+                            <input type="text" class="form-control" id="logradouroCruzamento" placeholder="Logradouro do Cruzamento" disabled>
+                        </div>
+                    </div>
                     <div class="row mb-3 mt-2">
                         <div class="form-floating">
                             <textarea class="form-control" id="ocorrencia" placeholder="&nbsp;&nbsp;Descrição da ocorrência" style="height: 100px;resize: none;" disabled></textarea>
@@ -137,7 +140,6 @@ if ($mysqli -> connect_errno) {
                     <div class="row">
                         <div class="form-floating col-md-5 mb-3">
                             <select class="form-select" id="tipoServico" aria-label="Tipo Serviço" disabled>
-                                <!--<option selected>Open this select menu</option>-->
                                 <option value="0" selected>Selecione o tipo de serviço</option>
                                 <?php
                                     $sql = "SELECT * FROM tiposervico WHERE desativado =0 order by descricao";
@@ -147,7 +149,6 @@ if ($mysqli -> connect_errno) {
                                         echo "<option value=".$row['id'].">".$row['descricao']."</option>";
                                     }  
                                     $result -> free_result();  
-                                    //$mysqli->close();
                                 ?>
                             </select>
                             <label for="tipoServico">Tipo Serviço</label>
@@ -156,7 +157,6 @@ if ($mysqli -> connect_errno) {
                     <div class="row">
                         <div class="form-floating col-md-11">
                             <select class="form-select" id="tipoAtividade" aria-label="Atividade executada" disabled>
-                                <!--<option selected>Open this select menu</option>-->
                                 <option value="0" selected>Selecione a atividade executada</option>
                                 <?php
                                     $sql = "SELECT * FROM tipoatividade WHERE desativado =0 order by descricao";
@@ -166,7 +166,6 @@ if ($mysqli -> connect_errno) {
                                         echo "<option value=".$row['id'].">".$row['descricao']."</option>";
                                     }  
                                     $result -> free_result();  
-                                    //$mysqli->close();
                                 ?>
                             </select>
                             <label for="tipoAtividade">Atividade executada</label>
@@ -190,7 +189,6 @@ if ($mysqli -> connect_errno) {
                     <div class="row">
                         <div class="form-floating col-md-4 mb-3">
                             <select class="form-select" id="tipoMaterial" aria-label="Material utilizado" disabled>
-                                <!--<option selected>Open this select menu</option>-->
                                 <option value="0" selected>Selecione o material utilizado</option>
                                 <?php
                                     $sql = "SELECT * FROM material WHERE desativado =0 order by descricao";
@@ -200,7 +198,6 @@ if ($mysqli -> connect_errno) {
                                         echo "<option value=".$row['id'].">".$row['descricao']."</option>";
                                     }  
                                     $result -> free_result();  
-                                    //$mysqli->close();
                                 ?>
                             </select>
                             <label for="tipoMaterial">Material utilizado</label>
@@ -262,7 +259,6 @@ if ($mysqli -> connect_errno) {
                     <div class="row">
                         <div class="form-floating col-md-4 mt-3 mb-3">
                             <select class="form-select" id="veiculo" aria-label="veiculo" disabled>
-                                <!--<option selected>Open this select menu</option>-->
                                 <option value="0">Selecione o veículo</option>
                                 <?php 
                                     $sql = "select id,CONCAT(modelo, ' ',placa) as carro from veiculo order by carro";
@@ -272,7 +268,6 @@ if ($mysqli -> connect_errno) {
                                         echo "<option value=".$row['id'].">".$row['carro']."</option>";
                                     }  
                                     $result -> free_result();    
-                                    //$mysqli->close();
                                 ?>
                             </select>
                             <label for="veiculo">Veículo</label>
@@ -309,29 +304,30 @@ if ($mysqli -> connect_errno) {
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="staticBackdropLabel">Localize o endereço</h4>
+                    <h4 class="modal-title" id="staticBackdropLabel">Localize o endereço</h4><span id="chamada" style="display:none"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-floating col-md-3 mb-2">
+                        <div class="form-floating col-md-8 mb-2">
                             <select class="form-select" id="tipoLogradouro" aria-label="Tipo Logradouro">
                                 <!--<option selected>Open this select menu</option>-->
-                                <option value="0"></option>
+                                <option value="0">Selecione o tipo do logradouro</option>
                                 <?php
-                                    $sql = "SELECT * FROM origem WHERE desativado =0 order by descricao";
+                                    $sql = "SELECT * FROM tipologradouro WHERE desativado =0 order by descricao";
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
                                         echo "<option value=".$row['id'].">".$row['descricao']."</option>";
                                     }  
                                     $result -> free_result();  
-                                    //$mysqli->close();
                                 ?>
                             </select>
                             <label for="tipoMaterial">Tipo Logradouro</label>
                         </div>
-                        <div class="col-md-5 mb-2" style="padding-top:9px;">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-2" style="padding-top:9px;">
                             <input type="text" class="form-control" placeholder="Endereço" aria-label="Endereço" aria-describedby="pesquisarEndereco" id="endereco">
                         </div>
                         <div class="col-md-1 mt-2">
@@ -339,7 +335,7 @@ if ($mysqli -> connect_errno) {
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="col-md-12 mb-2" style="max-height:300px;height:300px;border: 1px solid #ced4da">
+                        <div class="col-md-12 mb-2" style="max-height:250px;height:250px;border: 1px solid #ced4da;overflow: auto;">
                             <table class="table table-hover" id="tabelaResultadoEndereco">
                                 <tbody>
                                 <!--<tr>
@@ -352,10 +348,13 @@ if ($mysqli -> connect_errno) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="fecharModal">Fechar</button>
                 </div>
                 </div>
             </div>
         </div>
+        <?php
+            $mysqli->close();
+        ?>
     </body>
 </html>
