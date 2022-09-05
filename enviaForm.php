@@ -1,4 +1,6 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
+ini_set('default_charset','utf-8');
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
 $password = "root"; 
@@ -8,7 +10,7 @@ $database = "teste_semaforica";
 $hostname = "localhost"; 
 
 $mysqli = new mysqli($hostname,$user,$password,$database);
-
+$mysqli -> set_charset('utf8mb4');
 $comando="";
 // Checar conexão
 if ($mysqli -> connect_errno) {
@@ -53,11 +55,11 @@ else{
 
         $tabela="";
         $linhas =0;
-        $sql = "UPDATE ocorrencia SET data='".$data."',horaEncerramento='".$hora."',origem='".$origemOcorrencia."',numTalao=".$numeroTalao.",responsavelCadastro='".$responsavelCadastro."',endereco='".$logradouroOcorrencia."',"
-        ."bairro='".$bairroOcorrencia."',numEndereco='".$numeroEndereco."',enderecoCruzamento='".$logradouroCruzamento."',descricao='".$descricaoOcorrencia."',tipoServico='".$tipoServico."',"
-        ."atividadeExecutada='".$atividadesExecutadas."',material='".$materiaisUtilizados."',quantidadeMaterial='".$quantidadeMateriaisUtilizados."',"
-        ."consorcio_pmsbc='".$retiradaOuOrigemMaterial."',horarioRecebeu='".$horaRecebeuServico."',horarioChegou='".$horaChegouLocal."',horarioInicio='".$horaIniciouServico."',"
-        ."horarioFim='".$horaTerminouServico."',veiculo='".$veiculoUtilizado."',kmInicial=".$kmInicialVeiculo.",kmFinal=".$kmFinalVeiculo.",obs='".$obs."',status=0 WHERE numDiaria=".$numeroDiaria.";";
+        $sql = "UPDATE ocorrencia SET data='".$data."',horaEncerramento='".$hora."',origem='".utf8_encode($origemOcorrencia)."',numTalao=".$numeroTalao.",responsavelCadastro='".utf8_encode($responsavelCadastro)."',endereco='".utf8_encode($logradouroOcorrencia)."',"
+        ."bairro='".utf8_encode($bairroOcorrencia)."',numEndereco='".$numeroEndereco."',enderecoCruzamento='".utf8_encode($logradouroCruzamento)."',descricao='".utf8_encode($descricaoOcorrencia)."',tipoServico='".utf8_encode($tipoServico)."',"
+        ."atividadeExecutada='".utf8_encode($atividadesExecutadas)."',material='".utf8_encode($materiaisUtilizados)."',quantidadeMaterial='".$quantidadeMateriaisUtilizados."',"
+        ."consorcio_pmsbc='".utf8_encode($retiradaOuOrigemMaterial)."',horarioRecebeu='".$horaRecebeuServico."',horarioChegou='".$horaChegouLocal."',horarioInicio='".$horaIniciouServico."',"
+        ."horarioFim='".$horaTerminouServico."',veiculo='".utf8_encode($veiculoUtilizado)."',kmInicial=".$kmInicialVeiculo.",kmFinal=".$kmFinalVeiculo.",obs='".utf8_encode($obs)."',status=0 WHERE numDiaria=".$numeroDiaria.";";
         if ($result = $mysqli->query($sql)) {
             $linhasAfetadas = $mysqli->affected_rows;
             //$result -> free_result();

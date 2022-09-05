@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 26-Ago-2022 às 17:56
+-- Generation Time: 01-Set-2022 às 16:51
 -- Versão do servidor: 5.7.11
 -- PHP Version: 5.6.18
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `teste_semaforica`
 --
-CREATE DATABASE IF NOT EXISTS `teste_semaforica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `teste_semaforica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `teste_semaforica`;
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `logradouro` (
   `endereco` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `bairro` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `desativado` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `logradouro`
@@ -11512,7 +11512,7 @@ CREATE TABLE `material` (
   `id` int(11) NOT NULL,
   `descricao` varchar(255) CHARACTER SET latin1 NOT NULL,
   `desativado` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `material`
@@ -11609,158 +11609,326 @@ INSERT INTO `material` (`id`, `descricao`, `desativado`) VALUES
 CREATE TABLE `ocorrencia` (
   `numDiaria` int(11) NOT NULL,
   `data` date NOT NULL,
-  `hora` time NOT NULL,
-  `origem` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `endereco` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `bairro` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `numEndereco` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `descricao` text CHARACTER SET latin1,
-  `tipoServico` text CHARACTER SET latin1,
-  `material` text CHARACTER SET latin1,
-  `quantidadeMaterial` text CHARACTER SET latin1,
-  `consorcio_pmsbc` text CHARACTER SET latin1,
+  `horaAbertura` time NOT NULL,
+  `horaEncerramento` time NOT NULL DEFAULT '00:00:00',
+  `origem` varchar(255) NOT NULL DEFAULT '',
+  `numTalao` int(11) NOT NULL DEFAULT '0',
+  `responsavelCadastro` varchar(255) NOT NULL DEFAULT '',
+  `endereco` varchar(255) NOT NULL DEFAULT '',
+  `bairro` varchar(255) NOT NULL DEFAULT '',
+  `numEndereco` varchar(255) NOT NULL DEFAULT '',
+  `enderecoCruzamento` text,
+  `descricao` text,
+  `tipoServico` text,
+  `atividadeExecutada` text,
+  `material` text,
+  `quantidadeMaterial` text,
+  `consorcio_pmsbc` text,
   `horarioRecebeu` time DEFAULT NULL,
   `horarioChegou` time DEFAULT NULL,
   `horarioInicio` time DEFAULT NULL,
   `horarioFim` time DEFAULT NULL,
-  `veiculo` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `veiculo` varchar(255) NOT NULL DEFAULT '',
   `kmInicial` int(11) DEFAULT NULL,
   `kmFinal` int(11) DEFAULT NULL,
-  `obs` text CHARACTER SET latin1,
+  `obs` text,
   `status` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `ocorrencia`
 --
 
-INSERT INTO `ocorrencia` (`numDiaria`, `data`, `hora`, `origem`, `endereco`, `bairro`, `numEndereco`, `descricao`, `tipoServico`, `material`, `quantidadeMaterial`, `consorcio_pmsbc`, `horarioRecebeu`, `horarioChegou`, `horarioInicio`, `horarioFim`, `veiculo`, `kmInicial`, `kmFinal`, `obs`, `status`) VALUES
-(1, '2022-08-18', '16:20:22', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(2, '2022-08-19', '10:20:20', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(3, '2022-08-18', '12:17:59', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(4, '2022-08-18', '12:18:57', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(5, '2022-08-18', '12:20:41', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(6, '2022-08-18', '12:20:49', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(7, '2022-08-18', '12:22:04', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(8, '2022-08-18', '12:23:32', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(9, '2022-08-18', '12:24:01', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(10, '2022-08-18', '12:25:29', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(11, '2022-08-18', '12:26:58', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(12, '2022-08-18', '12:27:28', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(13, '2022-08-18', '12:44:11', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(14, '2022-08-18', '12:44:26', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(15, '2022-08-18', '14:31:46', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(16, '2022-08-18', '14:47:35', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(17, '2022-08-18', '15:31:55', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(18, '2022-08-18', '15:32:31', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(19, '2022-08-18', '15:34:44', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(20, '2022-08-18', '15:36:09', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(21, '2022-08-18', '16:22:32', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(22, '2022-08-18', '16:23:09', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(23, '2022-08-18', '16:23:52', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(24, '2022-08-18', '16:25:18', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(25, '2022-08-18', '16:25:48', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(26, '2022-08-18', '16:28:40', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(27, '2022-08-18', '16:28:56', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(28, '2022-08-18', '16:49:15', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(29, '2022-08-18', '16:49:54', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(30, '2022-08-18', '16:50:26', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(31, '2022-08-18', '16:50:46', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(32, '2022-08-18', '16:51:28', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(33, '2022-08-18', '16:52:58', '', '', '', '', '', '', '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
-(34, '2022-08-25', '15:44:30', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(35, '2022-08-25', '15:56:00', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(36, '2022-08-25', '16:34:46', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(37, '2022-08-25', '16:38:02', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(38, '2022-08-25', '16:39:02', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(39, '2022-08-25', '16:42:44', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(40, '2022-08-25', '16:45:40', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(41, '2022-08-25', '16:46:07', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(42, '2022-08-25', '16:46:43', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(43, '2022-08-25', '16:48:40', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(44, '2022-08-25', '16:49:36', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(45, '2022-08-25', '16:58:50', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(46, '2022-08-25', '17:02:24', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(47, '2022-08-25', '17:09:14', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(48, '2022-08-25', '17:10:51', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(49, '2022-08-25', '17:12:09', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(50, '2022-08-25', '17:15:22', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(51, '2022-08-25', '17:15:50', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(52, '2022-08-25', '17:16:34', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(53, '2022-08-25', '17:18:20', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(54, '2022-08-25', '17:28:48', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(55, '2022-08-26', '10:20:53', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(56, '2022-08-26', '10:27:18', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(57, '2022-08-26', '10:28:20', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(58, '2022-08-26', '10:30:44', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(59, '2022-08-26', '10:35:39', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(60, '2022-08-26', '10:37:58', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(61, '2022-08-26', '10:48:39', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(62, '2022-08-26', '10:49:15', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(63, '2022-08-26', '10:53:14', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(64, '2022-08-26', '10:57:29', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(65, '2022-08-26', '10:58:57', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(66, '2022-08-26', '11:02:20', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(67, '2022-08-26', '11:04:30', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(68, '2022-08-26', '11:04:37', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(69, '2022-08-26', '11:07:58', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(70, '2022-08-26', '11:33:39', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(71, '2022-08-26', '11:33:59', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(72, '2022-08-26', '11:34:41', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(73, '2022-08-26', '11:35:56', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(74, '2022-08-26', '11:37:16', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(75, '2022-08-26', '11:37:59', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(76, '2022-08-26', '11:38:43', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(77, '2022-08-26', '11:39:11', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(78, '2022-08-26', '11:40:38', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(79, '2022-08-26', '11:43:24', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(80, '2022-08-26', '11:47:28', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(81, '2022-08-26', '11:48:08', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(82, '2022-08-26', '12:04:40', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(83, '2022-08-26', '12:05:18', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(84, '2022-08-26', '12:05:50', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(85, '2022-08-26', '12:06:45', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(86, '2022-08-26', '12:08:43', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(87, '2022-08-26', '12:09:26', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(88, '2022-08-26', '12:10:21', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(89, '2022-08-26', '12:11:14', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(90, '2022-08-26', '12:11:40', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(91, '2022-08-26', '12:12:13', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(92, '2022-08-26', '12:16:21', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(93, '2022-08-26', '12:21:29', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(94, '2022-08-26', '12:27:46', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(95, '2022-08-26', '12:30:56', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(96, '2022-08-26', '12:33:44', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(97, '2022-08-26', '12:37:11', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(98, '2022-08-26', '12:38:23', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(99, '2022-08-26', '12:41:15', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(100, '2022-08-26', '12:47:14', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(101, '2022-08-26', '12:47:34', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(102, '2022-08-26', '12:50:41', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(103, '2022-08-26', '12:54:13', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(104, '2022-08-26', '12:56:26', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(105, '2022-08-26', '12:58:32', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(106, '2022-08-26', '12:59:54', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(107, '2022-08-26', '13:06:22', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(108, '2022-08-26', '13:11:28', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(109, '2022-08-26', '13:33:41', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(110, '2022-08-26', '13:37:19', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(111, '2022-08-26', '13:37:54', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(112, '2022-08-26', '13:38:24', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(113, '2022-08-26', '13:38:44', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(114, '2022-08-26', '13:39:00', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(115, '2022-08-26', '13:39:12', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(116, '2022-08-26', '13:43:53', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(117, '2022-08-26', '13:44:34', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(118, '2022-08-26', '17:08:37', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(119, '2022-08-26', '17:16:54', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(120, '2022-08-26', '17:40:38', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(121, '2022-08-26', '17:42:41', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(122, '2022-08-26', '17:45:55', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(123, '2022-08-26', '17:48:13', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(124, '2022-08-26', '17:52:54', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(125, '2022-08-26', '17:54:22', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
-(126, '2022-08-26', '17:54:57', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1);
+INSERT INTO `ocorrencia` (`numDiaria`, `data`, `horaAbertura`, `horaEncerramento`, `origem`, `numTalao`, `responsavelCadastro`, `endereco`, `bairro`, `numEndereco`, `enderecoCruzamento`, `descricao`, `tipoServico`, `atividadeExecutada`, `material`, `quantidadeMaterial`, `consorcio_pmsbc`, `horarioRecebeu`, `horarioChegou`, `horarioInicio`, `horarioFim`, `veiculo`, `kmInicial`, `kmFinal`, `obs`, `status`) VALUES
+(1, '2022-08-18', '16:20:22', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(2, '2022-08-19', '10:20:20', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(3, '2022-08-18', '12:17:59', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(4, '2022-08-18', '12:18:57', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(5, '2022-08-18', '12:20:41', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(6, '2022-08-18', '12:20:49', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(7, '2022-08-18', '12:22:04', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(8, '2022-08-18', '12:23:32', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(9, '2022-08-18', '12:24:01', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(10, '2022-08-18', '12:25:29', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(11, '2022-08-18', '12:26:58', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(12, '2022-08-18', '12:27:28', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(13, '2022-08-18', '12:44:11', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(14, '2022-08-18', '12:44:26', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(15, '2022-08-18', '14:31:46', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(16, '2022-08-18', '14:47:35', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(17, '2022-08-18', '15:31:55', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(18, '2022-08-18', '15:32:31', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(19, '2022-08-18', '15:34:44', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(20, '2022-08-18', '15:36:09', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(21, '2022-08-18', '16:22:32', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(22, '2022-08-18', '16:23:09', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(23, '2022-08-18', '16:23:52', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(24, '2022-08-18', '16:25:18', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(25, '2022-08-18', '16:25:48', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(26, '2022-08-18', '16:28:40', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(27, '2022-08-18', '16:28:56', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(28, '2022-08-18', '16:49:15', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(29, '2022-08-18', '16:49:54', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(30, '2022-08-18', '16:50:26', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(31, '2022-08-18', '16:50:46', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(32, '2022-08-18', '16:51:28', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(33, '2022-08-18', '16:52:58', '00:00:00', '', 0, '', '', '', '', NULL, '', '', NULL, '', '', '', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '', 0, 0, '', 1),
+(34, '2022-08-25', '15:44:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(35, '2022-08-25', '15:56:00', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(36, '2022-08-25', '16:34:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(37, '2022-08-25', '16:38:02', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(38, '2022-08-25', '16:39:02', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(39, '2022-08-25', '16:42:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(40, '2022-08-25', '16:45:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(41, '2022-08-25', '16:46:07', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(42, '2022-08-25', '16:46:43', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(43, '2022-08-25', '16:48:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(44, '2022-08-25', '16:49:36', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(45, '2022-08-25', '16:58:50', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(46, '2022-08-25', '17:02:24', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(47, '2022-08-25', '17:09:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(48, '2022-08-25', '17:10:51', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(49, '2022-08-25', '17:12:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(50, '2022-08-25', '17:15:22', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(51, '2022-08-25', '17:15:50', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(52, '2022-08-25', '17:16:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(53, '2022-08-25', '17:18:20', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(54, '2022-08-25', '17:28:48', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(55, '2022-08-26', '10:20:53', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(56, '2022-08-26', '10:27:18', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(57, '2022-08-26', '10:28:20', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(58, '2022-08-26', '10:30:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(59, '2022-08-26', '10:35:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(60, '2022-08-26', '10:37:58', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(61, '2022-08-26', '10:48:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(62, '2022-08-26', '10:49:15', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(63, '2022-08-26', '10:53:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(64, '2022-08-26', '10:57:29', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(65, '2022-08-26', '10:58:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(66, '2022-08-26', '11:02:20', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(67, '2022-08-26', '11:04:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(68, '2022-08-26', '11:04:37', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(69, '2022-08-26', '11:07:58', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(70, '2022-08-26', '11:33:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(71, '2022-08-26', '11:33:59', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(72, '2022-08-26', '11:34:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(73, '2022-08-26', '11:35:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(74, '2022-08-26', '11:37:16', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(75, '2022-08-26', '11:37:59', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(76, '2022-08-26', '11:38:43', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(77, '2022-08-26', '11:39:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(78, '2022-08-26', '11:40:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(79, '2022-08-26', '11:43:24', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(80, '2022-08-26', '11:47:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(81, '2022-08-26', '11:48:08', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(82, '2022-08-26', '12:04:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(83, '2022-08-26', '12:05:18', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(84, '2022-08-26', '12:05:50', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(85, '2022-08-26', '12:06:45', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(86, '2022-08-26', '12:08:43', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(87, '2022-08-26', '12:09:26', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(88, '2022-08-26', '12:10:21', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(89, '2022-08-26', '12:11:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(90, '2022-08-26', '12:11:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(91, '2022-08-26', '12:12:13', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(92, '2022-08-26', '12:16:21', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(93, '2022-08-26', '12:21:29', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(94, '2022-08-26', '12:27:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(95, '2022-08-26', '12:30:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(96, '2022-08-26', '12:33:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(97, '2022-08-26', '12:37:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(98, '2022-08-26', '12:38:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(99, '2022-08-26', '12:41:15', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(100, '2022-08-26', '12:47:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(101, '2022-08-26', '12:47:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(102, '2022-08-26', '12:50:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(103, '2022-08-26', '12:54:13', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(104, '2022-08-26', '12:56:26', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(105, '2022-08-26', '12:58:32', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(106, '2022-08-26', '12:59:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(107, '2022-08-26', '13:06:22', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(108, '2022-08-26', '13:11:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(109, '2022-08-26', '13:33:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(110, '2022-08-26', '13:37:19', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(111, '2022-08-26', '13:37:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(112, '2022-08-26', '13:38:24', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(113, '2022-08-26', '13:38:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(114, '2022-08-26', '13:39:00', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(115, '2022-08-26', '13:39:12', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(116, '2022-08-26', '13:43:53', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(117, '2022-08-26', '13:44:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(118, '2022-08-26', '17:08:37', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(119, '2022-08-26', '17:16:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(120, '2022-08-26', '17:40:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(121, '2022-08-26', '17:42:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(122, '2022-08-26', '17:45:55', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(123, '2022-08-26', '17:48:13', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(124, '2022-08-26', '17:52:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(125, '2022-08-26', '17:54:22', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(126, '2022-08-26', '17:54:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(127, '2022-08-29', '08:35:12', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(128, '2022-08-29', '08:36:27', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(129, '2022-08-29', '08:37:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(130, '2022-08-29', '08:37:19', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(131, '2022-08-29', '08:39:05', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(132, '2022-08-29', '08:39:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(133, '2022-08-29', '08:43:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(134, '2022-08-29', '08:43:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(135, '2022-08-29', '08:44:47', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(136, '2022-08-29', '08:46:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(137, '2022-08-29', '08:46:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(138, '2022-08-29', '08:46:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(139, '2022-08-29', '08:47:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(140, '2022-08-29', '08:48:29', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(141, '2022-08-29', '08:52:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(142, '2022-08-29', '08:53:29', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(143, '2022-08-29', '08:55:22', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(144, '2022-08-29', '08:56:37', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(145, '2022-08-29', '09:10:12', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(146, '2022-08-29', '09:15:59', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(147, '2022-08-29', '09:19:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(148, '2022-08-29', '09:20:52', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(149, '2022-08-29', '09:21:52', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(150, '2022-08-29', '09:22:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(151, '2022-08-29', '09:30:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(152, '2022-08-29', '09:35:47', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(153, '2022-08-29', '09:45:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(154, '2022-08-29', '09:46:25', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(155, '2022-08-29', '09:47:53', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(156, '2022-08-29', '09:48:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(157, '2022-08-29', '09:48:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(158, '2022-08-29', '09:49:15', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(159, '2022-08-29', '09:50:31', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(160, '2022-08-29', '09:52:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(161, '2022-08-29', '10:06:27', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(162, '2022-08-29', '10:07:00', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(163, '2022-08-29', '10:07:05', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(164, '2022-08-29', '10:10:07', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(165, '2022-08-29', '10:10:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(166, '2022-08-29', '10:10:24', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(167, '2022-08-29', '10:11:16', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(168, '2022-08-29', '10:34:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(169, '2022-08-29', '10:34:26', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(170, '2022-08-29', '10:35:06', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(171, '2022-08-29', '10:35:49', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(172, '2022-08-29', '10:36:13', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(173, '2022-08-29', '10:36:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(174, '2022-08-29', '10:37:35', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(175, '2022-08-29', '10:41:37', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(176, '2022-08-29', '10:42:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(177, '2022-08-29', '10:54:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(178, '2022-08-29', '10:55:36', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(179, '2022-08-29', '10:56:59', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(180, '2022-08-29', '10:58:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(181, '2022-08-29', '11:00:19', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(182, '2022-08-29', '11:01:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(183, '2022-08-29', '11:01:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(184, '2022-08-29', '11:02:32', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(185, '2022-08-29', '11:09:31', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(186, '2022-08-29', '11:45:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(187, '2022-08-29', '11:51:42', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(188, '2022-08-29', '12:02:16', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(189, '2022-08-29', '12:04:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(190, '2022-08-29', '12:16:42', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(191, '2022-08-29', '12:19:31', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(192, '2022-08-29', '12:21:18', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(193, '2022-08-29', '12:22:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(194, '2022-08-29', '12:22:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(195, '2022-08-29', '12:28:19', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(196, '2022-08-29', '12:28:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(197, '2022-08-29', '12:31:37', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(198, '2022-08-29', '12:34:35', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(199, '2022-08-29', '12:37:32', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(200, '2022-08-29', '12:41:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(201, '2022-08-29', '12:43:17', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(202, '2022-08-29', '12:43:59', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(203, '2022-08-29', '12:46:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(204, '2022-08-29', '12:47:48', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(205, '2022-08-29', '12:56:16', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(206, '2022-08-29', '12:59:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(207, '2022-08-29', '13:03:38', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(208, '2022-08-29', '13:05:10', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(209, '2022-08-29', '13:09:05', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(210, '2022-08-29', '13:09:26', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(211, '2022-08-29', '13:10:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(212, '2022-08-29', '13:11:35', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(213, '2022-08-29', '13:11:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(214, '2022-08-29', '13:13:09', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(215, '2022-08-29', '13:14:26', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(216, '2022-08-29', '13:18:55', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(217, '2022-08-29', '13:28:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(218, '2022-08-29', '15:18:47', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(219, '2022-08-29', '15:19:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(220, '2022-08-29', '15:25:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(221, '2022-08-29', '15:26:20', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(222, '2022-08-29', '15:34:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(223, '2022-08-29', '15:34:48', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(224, '2022-08-29', '15:35:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(225, '2022-08-29', '16:43:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(226, '2022-08-29', '16:47:12', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(227, '2022-08-29', '16:48:23', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(228, '2022-08-29', '16:50:06', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(229, '2022-08-29', '16:52:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(230, '2022-08-29', '16:55:52', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(231, '2022-08-29', '16:57:17', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(232, '2022-08-29', '16:59:43', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(233, '2022-08-30', '08:43:22', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(234, '2022-08-30', '09:10:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(235, '2022-08-30', '09:13:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(236, '2022-08-30', '09:17:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(237, '2022-08-30', '09:28:14', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(238, '2022-08-30', '09:33:49', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(239, '2022-08-30', '09:35:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(240, '2022-08-30', '09:37:50', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(241, '2022-08-30', '17:08:46', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(242, '2022-08-30', '17:10:32', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(243, '2022-08-30', '17:13:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(244, '2022-08-30', '17:17:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(245, '2022-08-30', '17:22:03', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(246, '2022-08-31', '12:35:35', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(247, '2022-08-31', '12:39:44', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(248, '2022-08-31', '16:11:27', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(249, '2022-08-31', '16:31:06', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(250, '2022-08-31', '16:34:11', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(251, '2022-08-31', '16:34:57', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(252, '2022-08-31', '16:35:34', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(253, '2022-08-31', '16:37:39', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(254, '2022-08-31', '16:45:01', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(255, '2022-08-31', '16:54:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(256, '2022-08-31', '17:09:51', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(257, '2022-08-31', '17:23:58', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(258, '2022-08-31', '17:34:04', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(259, '2022-08-31', '17:37:18', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(260, '2022-08-31', '17:40:30', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(261, '2022-08-31', '17:47:10', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(262, '2022-08-31', '17:47:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(263, '2022-08-31', '17:54:16', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(264, '2022-08-31', '17:56:41', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(265, '2022-08-31', '17:57:20', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(266, '2022-08-31', '18:05:02', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(267, '2022-09-01', '08:18:08', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(268, '2022-09-01', '08:22:28', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(269, '2022-09-01', '09:42:08', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(270, '2022-09-01', '09:43:40', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(271, '2022-09-01', '09:45:31', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(272, '2022-09-01', '09:59:33', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(273, '2022-09-01', '10:01:32', '10:03:08', 'Marcos - Coordenador', 0, 'RICARDO DE BARROS ALVES', 'ESTRADA FUKUTARO YIDA', 'COOPERATIVA', 'S/N', 'ESTRADA SAMUEL AIZEMBERG', 'descrição', 'Implanta??o', 'Colocar fita de a?o no controlador;Acertar rel?gio;', 'Adesivo EP8;Adesivo EP8;Bateria da CPU;Cabo 8x1,5mm?;Cabo 4x1,5mm?;Cabo 4x1,5mm?;', '1;3;2;190;12;30;', 'Retirada;Consórcio;PMSBC;Consórcio;PMSBC;Consórcio;', '10:02:00', '10:03:00', '10:04:00', '10:05:00', 'Gol ABC-1234', 110, 125, 'observações', 0),
+(274, '2022-09-01', '10:13:21', '10:14:25', 'Marcos - Coordenador', 111, 'Ricardo de Barros Alves', 'ESTRADA FUKUTARO YIDA', 'COOPERATIVA', 'S/N', 'ESTRADA SAMUEL AIZEMBERG', 'desc', 'Manutenï¿½ï¿½o Corretiva', 'Desmembrar fases;Atualizar NT;', 'Adesivo EP8;Anteparo;Bateria da CPU;', '1;2;3;', 'Retirada;PMSBC;ConsÃ³rcio;', '10:13:00', '10:14:00', '10:15:00', '10:16:00', 'Gol ABC-1234', 120, 135, 'oobbss', 0),
+(275, '2022-09-01', '10:17:10', '10:22:58', 'PRODIGI', 112233, 'Ricardo de Barros Alves', 'ESTRADA FUKUTARO YIDA', 'COOPERATIVA', 'S/N', 'ESTRADA SAMUEL AIZEMBERG', 'desc', 'Implantaï¿½ï¿½o', 'Alteraï¿½ï¿½o na posiï¿½ï¿½o do GF de pedestre;Anotar nï¿½mero de sï¿½rie;Apoio a outra equipe;Atualizar NT;Ativar semï¿½foro;Apoio a ENEL;', 'Adesivo EP8;Anteparo;Bateria da CPU;', '1;2;3;', 'Retirada;PMSBC;ConsÃ³rcio;', '10:21:00', '10:22:00', '10:23:00', '10:24:00', 'Gol ABC-1234', 125, 130, 'obss', 0),
+(276, '2022-09-01', '10:25:17', '10:26:27', 'Ronda', 1234123, 'Ricardo de Barros Alves', 'RUA GIACOMO VERSOLATO', 'NOVA PETROPOLIS', '0', 'RUA JULIA BATOCHIO GIACOMINI', 'descriÃ§Ã£o da ocorrÃªncia', 'Implantaï¿½ï¿½o', 'Colocar faixa;Calibrar os tempos semafï¿½ricos;', 'Cabo 8x1,5mmï¿½;Cabo 8x1,5mmï¿½;Cabo 8x1,5mmï¿½;Braï¿½o Proj. p/ G.F. 101.6mm (4")x5,20m;', '11;20;30;2;', 'Retirada;PMSBC;ConsÃ³rcio;PMSBC;', '10:26:00', '10:27:00', '10:28:00', '10:29:00', 'Gol ABC-1234', 11, 25, 'observaÃ§Ãµes da ocorrÃªncia', 0),
+(277, '2022-09-01', '11:04:54', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(278, '2022-09-01', '11:07:42', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(279, '2022-09-01', '11:08:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(280, '2022-09-01', '11:10:43', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(281, '2022-09-01', '11:11:30', '11:13:03', 'Ronda', 123, 'Ricardo de Barros Alves', 'ESTRADA SAMUEL AIZEMBERG', 'ALVES DIAS', 'S/N', 'ESTRADA FUKUTARO YIDA', 'descrição da ocorrência', 'Manutenção Corretiva', 'Acertar relógio;Anotar número de série;Furto de cabo;', 'Cabo 8x1,5mm²;Adesivo EP8;Cabo 4x1,5mm²;Cabo 2x2,5mm²;', '10;4;20;12;', 'Retirada;PMSBC;PMSBC;Consórcio;', '11:12:00', '11:13:00', '11:14:00', '11:15:00', 'Gol ABC-1234', 11234, 11238, 'observações da ocorrência', 0),
+(282, '2022-09-01', '11:18:06', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(283, '2022-09-01', '11:18:56', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(284, '2022-09-01', '11:25:14', '11:26:29', 'Ronda', 123, 'Ricardo de Barros Alves', 'AVENIDA CAMINHO DO MAR', 'VILA MUSSOLINI', 'S/N', 'AVENIDA WINSTON CHURCHILL', 'descriÃ§Ã£o', 'ImplantaÃ§Ã£o', 'Anotar nÃºmero de sÃ©rie;Acertar relÃ³gio;', 'Cabo 2x1,5mmÂ²;AtualizaÃ§Ã£o do Controlador semafÃ³rico - MÃ³dulo PluviomÃ©trico;BotÃ£o p/ Botoeira;', '1;2;2;', 'ConsÃ³rcio;PMSBC;Retirada;', '11:26:00', '11:27:00', '11:28:00', '11:29:00', 'Gol ABC-1234', 12, 34, 'observaÃ§Ãµes', 0),
+(285, '2022-09-01', '11:27:21', '00:00:00', '', 0, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 1),
+(286, '2022-09-01', '11:32:46', '11:33:46', 'Ronda', 1, 'Ricardo de Barros Alves', 'ESTRADA SAMUEL AIZEMBERG', 'ALVES DIAS', 'S/N', 'ESTRADA FUKUTARO YIDA', 'descriÃ§Ã£o', 'Implantação', 'Acertar relógio;Monitoramento via Central;', 'Botão p/ Botoeira;', '1;', 'PMSBC;', '11:33:00', '11:34:00', '11:35:00', '11:36:00', 'Gol ABC-1234', 12, 123, 'observações', 0),
+(287, '2022-09-01', '12:05:30', '12:06:43', 'Ronda', 1, 'Ricardo de Barros Alves', 'AVENIDA DO TABOAO', 'TABOAO', 'S/N', 'AVENIDA MARGINAL DO CORREGO DO TABOAO', 'descrição', 'ImplantaÃ§Ã£o', 'Acertar relÃ³gio;', 'BotÃ£o p/ Botoeira;', '2;', 'ConsÃ³rcio;', '12:05:00', '12:05:00', '12:06:00', '12:06:00', 'Gol ABC-1234', 1, 2, 'observaÃƒÂ§ÃƒÂµes', 0),
+(288, '2022-09-01', '12:28:00', '12:28:46', 'Ronda', 1, 'Ricardo de Barros Alves', 'AVENIDA DO TABOAO', 'TABOAO', '2', 'AVENIDA MARGINAL DO CORREGO DO TABOAO', 'descriÃ§Ã£o', 'Implantação', 'Acertar relógio;', 'Botão p/ Botoeira;', '3;', 'Consórcio;', '12:28:00', '12:29:00', '12:30:00', '12:31:00', 'Gol ABC-1234', 4, 5, 'observaÃ§Ãµes', 0),
+(289, '2022-09-01', '12:46:50', '13:19:34', 'Ronda', 0, 'Ricardo de Barros Alves', 'AVENIDA DO TABOAO', 'TABOAO', 'S/N', 'AVENIDA MARGINAL DO CORREGO DO TABOAO', 'descriÃ§Ã£o', 'ImplantaÃ§Ã£o', 'Acertar relÃ³gio;', 'BotÃ£o p/ Botoeira;', '1;', 'ConsÃ³rcio;', '12:47:00', '12:48:00', '12:48:00', '12:48:00', 'Gol ABC-1234', 1, 2, 'observaÃ§Ãµes', 0);
 
 -- --------------------------------------------------------
 
@@ -11772,7 +11940,7 @@ CREATE TABLE `origem` (
   `id` int(11) NOT NULL,
   `descricao` varchar(50) CHARACTER SET latin1 NOT NULL,
   `desativado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `origem`
@@ -11794,7 +11962,7 @@ CREATE TABLE `tipoatividade` (
   `id` int(11) NOT NULL,
   `descricao` varchar(255) CHARACTER SET latin1 NOT NULL,
   `desativado` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tipoatividade`
@@ -11884,6 +12052,43 @@ INSERT INTO `tipoatividade` (`id`, `descricao`, `desativado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tipologradouro`
+--
+
+CREATE TABLE `tipologradouro` (
+  `id` int(11) NOT NULL,
+  `descricao` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+  `desativado` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tipologradouro`
+--
+
+INSERT INTO `tipologradouro` (`id`, `descricao`, `desativado`) VALUES
+(1, 'Acesso', 0),
+(2, 'Alameda', 0),
+(3, 'Avenida', 0),
+(4, 'Caminho', 0),
+(5, 'Chácara', 0),
+(6, 'Conjunto', 0),
+(7, 'Corredor', 0),
+(8, 'Estrada', 0),
+(9, 'Largo', 0),
+(10, 'Loteamento', 0),
+(11, 'Núcleo', 0),
+(12, 'Passagem', 0),
+(13, 'Praça', 0),
+(14, 'Rodovia', 0),
+(15, 'Rua', 0),
+(16, 'Travessa', 0),
+(17, 'Via', 0),
+(18, 'Viaduto', 0),
+(19, 'Viela', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tiposervico`
 --
 
@@ -11891,7 +12096,7 @@ CREATE TABLE `tiposervico` (
   `id` int(11) NOT NULL,
   `descricao` varchar(255) CHARACTER SET latin1 NOT NULL,
   `desativado` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tiposervico`
@@ -11917,7 +12122,7 @@ CREATE TABLE `veiculo` (
   `cor` varchar(255) CHARACTER SET latin1 NOT NULL,
   `placa` varchar(255) CHARACTER SET latin1 NOT NULL,
   `desativado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `veiculo`
@@ -11962,6 +12167,12 @@ ALTER TABLE `tipoatividade`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tipologradouro`
+--
+ALTER TABLE `tipologradouro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tiposervico`
 --
 ALTER TABLE `tiposervico`
@@ -11991,7 +12202,7 @@ ALTER TABLE `material`
 -- AUTO_INCREMENT for table `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
-  MODIFY `numDiaria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `numDiaria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
 --
 -- AUTO_INCREMENT for table `origem`
 --
@@ -12002,6 +12213,11 @@ ALTER TABLE `origem`
 --
 ALTER TABLE `tipoatividade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+--
+-- AUTO_INCREMENT for table `tipologradouro`
+--
+ALTER TABLE `tipologradouro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `tiposervico`
 --

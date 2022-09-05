@@ -1,4 +1,6 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
+ini_set('default_charset','utf-8');
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
 $password = "root"; 
@@ -31,7 +33,7 @@ else{
             $contador=1;
             if($linhas>0){ 
                 while($row = mysqli_fetch_array($result)) {
-                    $tabela= $tabela . "<tr id='".$contador."' style='width:0px;'><td class='end'>".$row['endereco']."</td><td class='bai'>".$row['bairro']."</td><td><button type='button' class='btn escolherEndereco'><i class='fas fa-check' style='font-size:16px;'>Escolher</i></button></td></tr>";
+                    $tabela= $tabela . "<tr id='".$contador."' style='width:0px;'><td class='end'>".utf8_encode($row['endereco'])."</td><td class='bai'>".utf8_encode($row['bairro'])."</td><td><button type='button' class='btn escolherEndereco'><i class='fas fa-check' style='font-size:16px;'>Escolher</i></button></td></tr>";
                     $contador++;
                 }
                 $result -> free_result();

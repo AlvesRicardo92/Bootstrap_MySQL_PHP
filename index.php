@@ -10,7 +10,6 @@ $database = "teste_semaforica";
 $hostname = "localhost"; 
 
 $mysqli = new mysqli($hostname,$user,$password,$database);
-
 // Checar conexão
 if ($mysqli -> connect_errno) {
   echo "Falha ao conectar ao banco: " . $mysqli -> connect_error;
@@ -85,7 +84,7 @@ if ($mysqli -> connect_errno) {
                                 $result = $mysqli->query($sql);
                                 $data = $result->fetch_all(MYSQLI_ASSOC);
                                 foreach($data as $row) {
-                                    echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                    echo "<option value=".$row['id'].">".utf8_encode($row['descricao'])."</option>";
                                 }  
                                 $result -> free_result();  
                             ?>
@@ -146,7 +145,7 @@ if ($mysqli -> connect_errno) {
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
-                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                        echo "<option value=".$row['id'].">".utf8_encode($row['descricao'])."</option>";
                                     }  
                                     $result -> free_result();  
                                 ?>
@@ -163,7 +162,7 @@ if ($mysqli -> connect_errno) {
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
-                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                        echo "<option value=".$row['id'].">".utf8_encode($row['descricao'])."</option>";
                                     }  
                                     $result -> free_result();  
                                 ?>
@@ -195,7 +194,7 @@ if ($mysqli -> connect_errno) {
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
-                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                        echo "<option value=".$row['id'].">".utf8_encode($row['descricao'])."</option>";
                                     }  
                                     $result -> free_result();  
                                 ?>
@@ -265,7 +264,7 @@ if ($mysqli -> connect_errno) {
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
-                                        echo "<option value=".$row['id'].">".$row['carro']."</option>";
+                                        echo "<option value=".$row['id'].">".utf8_encode($row['carro'])."</option>";
                                     }  
                                     $result -> free_result();    
                                 ?>
@@ -318,7 +317,7 @@ if ($mysqli -> connect_errno) {
                                     $result = $mysqli->query($sql);
                                     $data = $result->fetch_all(MYSQLI_ASSOC);
                                     foreach($data as $row) {
-                                        echo "<option value=".$row['id'].">".$row['descricao']."</option>";
+                                        echo "<option value=".$row['id'].">".utf8_encode($row['descricao'])."</option>";
                                     }  
                                     $result -> free_result();  
                                 ?>

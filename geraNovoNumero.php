@@ -1,4 +1,6 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
+ini_set('default_charset','utf-8');
 # Substitua abaixo os dados, de acordo com o banco criado
 $user = "root"; 
 $password = "root"; 
@@ -8,7 +10,6 @@ $database = "teste_semaforica";
 $hostname = "localhost"; 
 
 $mysqli = new mysqli($hostname,$user,$password,$database);
-
 $comando="";
 // Checar conexão
 if ($mysqli -> connect_errno) {
