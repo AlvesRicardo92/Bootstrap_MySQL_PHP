@@ -29,8 +29,10 @@ if ($mysqli -> connect_errno) {
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <!--<link rel="stylesheet" href="css/font-awesome.min.css">-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">-->
+        <link href="css/font-awesome-all.min.css" rel="stylesheet" />
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+        <script src="js/jquery.min.js"></script>
     </head>
     <body>
         <!-- Responsive navbar
@@ -295,8 +297,9 @@ if ($mysqli -> connect_errno) {
                 </div>
             </form>
         </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- MODAL do ENDEREÇO-->
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>-->
+        <script src="js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -348,6 +351,56 @@ if ($mysqli -> connect_errno) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="fecharModal">Fechar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL da PESQUISA-->
+        <div class="modal fade" id="pesquisaDiaria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pesquisaDiariaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="pesquisaDiariaLabel">Pesquisa de diária</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="numero" value="Número">
+                            <label class="form-check-label" for="numero">Número</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="endereco" value="Endereço">
+                            <label class="form-check-label" for="endereco">Endereço</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="funcionario" value="Funcionário">
+                            <label class="form-check-label" for="funcionario">Funcionário</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-2" style="padding-top:9px;">
+                            <input type="text" class="form-control" placeholder="Digite o que deseja buscar" aria-label="busca" aria-describedby="buscaDocumento" id="textoBusca">
+                        </div>
+                        <div class="col-md-1 mt-2">
+                            <button class="btn btn-primary mb-2" type="button" id="pesquisarDiaria" style="border-top-right-radius: 0.3rem;border-bottom-right-radius: 0.3rem;" onclick="buscarDiaria(document.getElementById('textoBusca').value)">Pesquisar</button>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-2" style="max-height:250px;height:250px;border: 1px solid #ced4da;overflow: auto;">
+                            <table class="table table-hover" id="tabelaResultadoDiaria">
+                                <tbody>
+                                <!--<tr>
+                                    <td class="align-middle">Descrição do serviço adicionado</td>
+                                    <td><button type="button" class="btn" onclick="removerLinha()"><i class="fas fa-trash" style="font-size:16px;"> Excluir</i></button></td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="fecharModalPesquisa">Fechar</button>
                 </div>
                 </div>
             </div>
