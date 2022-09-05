@@ -366,15 +366,15 @@ if ($mysqli -> connect_errno) {
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="numero" value="Número">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="numeroPesquisa" value="Número">
                             <label class="form-check-label" for="numero">Número</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="endereco" value="Endereço">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="enderecoPesquisa" value="Endereço">
                             <label class="form-check-label" for="endereco">Endereço</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="funcionario" value="Funcionário">
+                            <input class="form-check-input" type="radio" name="tipoPesquisa" id="funcionarioPesquisa" value="Funcionário">
                             <label class="form-check-label" for="funcionario">Funcionário</label>
                         </div>
                     </div>

@@ -562,6 +562,41 @@ function buscarEndereco(enderecoDigitado){
         });
     }
 }
+function buscarDiaria(dados){
+    if (document.getElementById('numeroPesquisa').value===false && document.getElementById('enderecoPesquisa').value===false && document.getElementById('funcionarioPesquisa').value===false){
+        alert("Selecione o tipo de busca: Número, Endereço ou Funcionário");
+    }
+    if (document.getElementById('textoBusca').value==="" || document.getElementById('textoBusca').value===" "){
+        alert("Digite os dados para pesquisa");
+    }
+    else{
+        $.ajax({
+            url: 'buscarEndereco.php',
+            async:false,
+            type: 'POST',
+            data: {endereco: enderecoDigitado},
+            dataType:'text',
+            done: function () {
+                alert("feito");
+            },
+            success: function (resultado) {
+                if (resultado!="Não encontrado"){
+                    var tabelaEndereco = document.getElementById('tabelaResultadoEndereco').getElementsByTagName('tbody')[0];
+                    tabelaEndereco.innerHTML=resultado;
+                }
+                else{
+                    alert("Endereço não encontrado.\nTente digitar apenas parte do nome");
+                }
+            },
+            fail: function(){
+                alert("falha");
+            },
+            error: function(){
+                alert("error");
+            }
+        });
+    }
+}
 /*function pegarEnderecoEscolhido() {
     var id =event.target.parentNode.parentNode.parentNode.id;
     var data = document.getElementById(id).querySelectorAll(".end"); 
